@@ -17,6 +17,7 @@ module state (
     }
     
   }
+  bintoAscii translater;
   alu myalu;
   sig score[8];
   sig out[8];
@@ -45,7 +46,11 @@ module state (
         n=myalu.n;
         result = out[0]+out[1]*2+out[2]*4+out[3]*8+out[4]*16+out[5]*32+out[6]*64+out[7]*128;
         seg.values[3]=11;
-        //from decimal to seg.values
+        translater.num = result;
+        seg.values[2]=translater.ascii[2];
+        seg.values[1]=translater.ascii[1];
+        seg.values[0]=translater.ascii[0];
+        
         score = out;
         state.d = state.MAIN;
 
@@ -61,7 +66,10 @@ module state (
         result = highscore[0]+highscore[1]*2+highscore[2]*4+highscore[3]*8+highscore[4]*16+highscore[5]*32+highscore[6]*64+highscore[7]*128;
         seg.values[3]=10;
 
-        // from decimal to seg.values
+        translater.num = result;
+        seg.values[2]=translater.ascii[2];
+        seg.values[1]=translater.ascii[1];
+        seg.values[0]=translater.ascii[0];
 
         if (bishi[0]|bishi[1]|bishi[2]) { state.d = state.MAIN;}
 
